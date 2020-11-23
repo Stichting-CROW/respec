@@ -1,6 +1,6 @@
 {
   "name": "respec",
-  "version": "25.18.3",
+  "version": "25.18.4",
   "license": "W3C",
   "description": "A technical specification pre-processor.",
   "engines": {
@@ -23,7 +23,7 @@
     "Robin Berjon"
   ],
   "devDependencies": {
-    "@types/marked": "^1.1.0",
+    "@types/marked": "^1.2.0",
     "@types/pluralize": "0.0.29",
     "boxen": "^4.2.0",
     "chai": "^4.2.0",
