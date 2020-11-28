@@ -69,6 +69,8 @@
     "build:w3c-debug": "npm run build:w3c -- --debug",
     "build:w3c-with-jquery": "node ./tools/builder.js --profile=w3c-common",
     "build:w3c": "node ./tools/builder.js --profile=w3c",
+    "build:stichting-crow-debug": "npm run build:stichting-crow -- --debug",
+    "build:stichting-crow": "node ./tools/builder.js --profile=stichting-crow",
     "build:dini-debug": "node run build:dini -- --debug",
     "build:dini": "node ./tools/builder.js --profile=dini",
     "build": "snyk protect",
@@ -81,6 +83,7 @@
     "snyk-protect": "snyk protect",
     "snyk": "snyk",
     "start": "node ./tools/dev-server.js",
+    "start:stichting-crow": "node ./tools/dev-server.js -- --profile=stichting-crow",
     "test:build": "jasmine --random=false ./tests/test-build.js",
     "test:headless": "node ./tests/headless.js",
     "test:karma": "npm run karma"

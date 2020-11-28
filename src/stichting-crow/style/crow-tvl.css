@@ -1,0 +1,7 @@
+/* Style for CROW Document */
+
+@import "base.css";
+
+body {
+  background-image: url('logos/crow-tvl.svg');
+}
