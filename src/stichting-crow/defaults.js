@@ -13,9 +13,9 @@ linter.register(privsecSectionRule, wptTestsExist);
 const crowLogo = {
   src: "https://www.crow.nl/medialibrary/CROW/img/CROW-logo.svg",
   alt: "Kennisplatform CROW",
-  height: 75,
-  width: 150,
-  url: "https://www.crow.nl/",
+  width: 132,
+  height: 40,
+  url: "https://crow.nl/",
 };
 
 const crowDefaults = {

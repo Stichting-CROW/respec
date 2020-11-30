@@ -83,7 +83,6 @@
     "snyk-protect": "snyk protect",
     "snyk": "snyk",
     "start": "node ./tools/dev-server.js",
-    "start:stichting-crow": "node ./tools/dev-server.js -- --profile=stichting-crow",
     "test:build": "jasmine --random=false ./tests/test-build.js",
     "test:headless": "node ./tests/headless.js",
     "test:karma": "npm run karma"

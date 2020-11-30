@@ -128,7 +128,7 @@ export default (conf, options) => {
     ${conf.logos.map(showLogo)} ${document.querySelector("h1#title")}
     ${getSpecSubTitleElem(conf)}
     <h2>
-      ${conf.prependW3C ? "W3C " : ""}${conf.isCR
+      ${conf.prependW3C ? "CROW " : ""}${conf.isCR
       ? `${conf.longStatus}`
       : `${conf.textStatus}`}
       <time class="dt-published" datetime="${conf.dashDate}"
@@ -280,7 +280,7 @@ function renderCopyright(conf) {
       ? html` ${[conf.additionalCopyrightHolders]} &amp; `
       : ""}
     <a href="https://crow.nl/">Stichting CROW, Ede</a>.
-    Dit document wordt gedistribueerd onder 
+    Gedistribueerd onder 
     ${linkLicense(
         conf.licenseInfo.name,
         conf.licenseInfo.url,

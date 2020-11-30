@@ -45,7 +45,7 @@ function createMetaViewport() {
 function createBaseStyle() {
   const link = document.createElement("link");
   link.rel = "stylesheet";
-  link.href = "/src/stichting-crow/base.css";
+  link.href = "https://stichting-crow.github.io/respec/style/base.css";
   link.classList.add("removeOnSave");
   return link;
 }
@@ -64,12 +64,12 @@ function createResourceHints() {
     },
     {
       hint: "preload", // all specs include on base.css.
-      href: "https://www.w3.org/StyleSheets/TR/2016/base.css",
+      href: "https://stichting-crow.github.io/respec/style/base.css",
       as: "style",
     },
     {
       hint: "preload", // all specs show the logo.
-      href: "https://www.w3.org/StyleSheets/TR/2016/logos/W3C",
+      href: "https://www.crow.nl/medialibrary/CROW/img/CROW-logo.svg",
       as: "image",
     },
   ];
@@ -122,6 +122,14 @@ export function run(conf) {
       styleFile += conf.specStatus;
   }
 
+  // add favicon for Geonovum
+  const favicon = document.createElement("link");
+  favicon.rel = "shortcut icon";
+  favicon.type = "image/x-icon";
+  favicon.href =
+    "https://stichting-crow.github.io/respec/style/logos/crow.ico";
+  document.head.prepend(favicon);
+
   // Attach W3C fixup script after we are done.
   if (true) {
     sub(
@@ -133,7 +141,7 @@ export function run(conf) {
     );
   }
 
-  const finalStyleURL = `/src/stichting-crow/style/${styleFile}`;
+  const finalStyleURL = `https://stichting-crow.github.io/respec/style/${styleFile}`;
   linkCSS(document, finalStyleURL);
   // Make sure the W3C stylesheet is the last stylesheet, as required by W3C Pub Rules.
   const moveStyle = styleMover(finalStyleURL);
