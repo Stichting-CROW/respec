@@ -21,6 +21,13 @@ const additions = {
       <a href="https://www.w3.org/TR/">W3C technical reports index</a> 에서
       열람할 수 있습니다.`,
   },
+  nl: {
+    status_at_publication: html`Deze paragraaf beschrijft de status van dit
+      document ten tijde van publicatie. Het is mogelijk dat er actuelere
+      versies van dit document bestaan. Een lijst van CROW-publicaties en de
+      laatste gepubliceerde versie van dit document zijn te vinden op
+      <a href="https://stichting-crow.github.io/">stichting-crow.github.io</a>.`,
+  },
   zh: {
     status_at_publication: html`本章节描述了本文档的发布状态。其它更新版本可能会覆盖本文档。W3C的文档列
       表和最新版本可通过<a href="https://www.w3.org/TR/">W3C技术报告</a

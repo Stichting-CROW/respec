@@ -55,6 +55,31 @@ const localizationStrings = {
       );
     },
   },
+  nl: {
+    rfc2119Keywords() {
+      return new RegExp(
+        [
+          "\\bMOET(?:EN)?\\b", // MUST
+          "\\b(?:NIET\\s+)?VEREIST\\b", // REQUIRED ... NOT REQUIRED
+          //
+          "\\bMAG(?:\\s+NIET|\\s+GEEN)\\b", // MUST NOT
+          "\\bMOGEN(?:\\s+NIET|\\s+GEEN)\\b", // MUST NOT
+          "\\bVERBODEN\\b", // MAY
+          //
+          "\\bZOU(?:DEN)?(?:\\s+NIET|\\s+GEEN)?\\b", // SHOULD ... 1/2
+          // "\\bMOETEN\\b", // ... SHOULD 2/2
+          "\\b(?:NIET\\s+)?AANBEVOLEN\\b", // RECOMMENDED
+          //
+          "\\bKAN\\b", // MAY
+          "\\bKUNNEN\\b", // MAY
+          "\\bMAG\\b", // MAY
+          "\\bMOGEN\\b", // MAY
+          "\\bOPTIONEEL\\b",  // OPTIONAL
+          // NIET VEREIST
+        ].join("|")
+      );
+    },
+  },
 };
 const l10n = getIntlData(localizationStrings);
 
@@ -156,7 +181,7 @@ function inlineBibrefMatches(matched, txt, conf) {
     showInlineWarning(
       citeElem,
       "Normative references in informative sections are not allowed. " +
-        `Remove '!' from the start of the reference \`[[${ref}]]\``
+      `Remove '!' from the start of the reference \`[[${ref}]]\``
     );
   }
 
