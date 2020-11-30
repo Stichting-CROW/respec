@@ -22,6 +22,7 @@ const crowDefaults = {
   lint: {
     "privsec-section": true,
     "wpt-tests-exist": false,
+    "no-http-props": false,
   },
   doJsonLd: true,
   license: "cc-by",
