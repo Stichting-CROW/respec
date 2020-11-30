@@ -33,7 +33,7 @@ const l10n = getIntlData(localizationStrings);
 export async function run() {
   const abs = document.getElementById("abstract");
   if (!abs) {
-    pub("error", `Document must have one element with \`id="abstract"`);
+    // pub("error", `Document must have one element with \`id="abstract"`);
     return;
   }
   abs.classList.add("introductory");
