@@ -19,7 +19,7 @@ function attachFixupScript(doc, version) {
       { once: true }
     );
   }
-  script.src = `https://www.w3.org/scripts/TR/${version}/fixup.js`;
+  script.src = `https://stichting-crow.github.io/respec/scripts/fixup.js`;
   doc.body.appendChild(script);
 }
 
@@ -59,7 +59,7 @@ function createResourceHints() {
     },
     {
       hint: "preload", // all specs need it, and we attach it on end-all.
-      href: "https://www.w3.org/scripts/TR/2016/fixup.js",
+      href: "https://stichting-crow.github.io/respec/scripts/fixup.js",
       as: "script",
     },
     {
