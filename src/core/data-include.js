@@ -12,6 +12,7 @@
 import { markdownToHtml, restructure } from "./markdown.js";
 import { pub } from "./pubsubhub.js";
 import { runTransforms } from "./utils.js";
+import { highlightElement } from "./highlight.js";
 
 export const name = "core/data-include";
 
@@ -21,7 +22,7 @@ export const name = "core/data-include";
  * @param {object} options
  * @param {boolean} options.replace
  */
-function fillWithText(el, data, { replace }) {
+async function fillWithText(el, data, { replace }) {
   const { includeFormat } = el.dataset;
   let fill = data;
   if (includeFormat === "markdown") {
@@ -30,6 +31,10 @@ function fillWithText(el, data, { replace }) {
 
   if (includeFormat === "text") {
     el.textContent = fill;
+  } else if (includeFormat === "code") {
+    el.textContent = fill;
+    // code needs to be highlighted
+    await highlightElement(el);
   } else {
     el.innerHTML = fill;
   }
@@ -48,12 +53,12 @@ function fillWithText(el, data, { replace }) {
  * @param {string} id
  * @param {string} url
  */
-function processResponse(rawData, id, url) {
+async function processResponse(rawData, id, url) {
   /** @type {HTMLElement} */
   const el = document.querySelector(`[data-include-id=${id}]`);
   const data = runTransforms(rawData, el.dataset.oninclude, url);
   const replace = typeof el.dataset.includeReplace === "string";
-  fillWithText(el, data, { replace });
+  await fillWithText(el, data, { replace });
   // If still in the dom tree, clean up
   if (!replace) {
     removeIncludeAttributes(el);
@@ -74,11 +79,22 @@ function removeIncludeAttributes(el) {
   ].forEach(attr => el.removeAttribute(attr));
 }
 
-export async function run() {
-  /** @type {NodeListOf<HTMLElement>} */
-  const includables = document.querySelectorAll("[data-include]");
+/**
+ * Find elements with [data-include].
+ * 
+ * @returns {NodeListOf<HTMLElement>}
+ */
+function includables() {
+  return document.querySelectorAll("[data-include]");
+}
 
-  const promisesToInclude = Array.from(includables).map(async el => {
+/**
+ * Replace elements with [data-include] with their contents.
+ * 
+ * @param {NodeListOf<HTMLElement>} els The elements with [data-include].
+ */
+function promisesToInclude(els) {
+  return Array.from(els).map(async el => {
     const url = el.dataset.include;
     if (!url) {
       return; // just skip it
@@ -88,12 +104,22 @@ export async function run() {
     try {
       const response = await fetch(url);
       const text = await response.text();
-      processResponse(text, id, url);
+      await processResponse(text, id, url);
     } catch (err) {
       const msg = `\`data-include\` failed: \`${url}\` (${err.message}). See console for details.`;
       console.error("data-include failed for element: ", el, err);
       pub("error", msg);
     }
   });
-  await Promise.all(promisesToInclude);
+}
+
+export async function run() {
+  let incl = includables();
+  let remainingIterations = 3; // max 3 levels of [data-include]
+  while (incl.length != 0 && remainingIterations > 0) {
+    pub("warn", `${incl.length} elements with [data-include].`);
+    await Promise.all(promisesToInclude(incl));
+    incl = includables();
+    remainingIterations = remainingIterations - 1;
+  }
 }

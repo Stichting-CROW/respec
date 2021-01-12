@@ -28,7 +28,7 @@ function getLanguageHint(classList) {
     .map(item => item.toLowerCase());
 }
 
-async function highlightElement(elem) {
+export async function highlightElement(elem) {
   elem.setAttribute("aria-busy", "true");
   const languages = getLanguageHint(elem.classList);
   let response;
@@ -42,9 +42,8 @@ async function highlightElement(elem) {
   switch (elem.localName) {
     case "pre":
       elem.classList.remove(language);
-      elem.innerHTML = `<code class="hljs${
-        language ? ` ${language}` : ""
-      }">${value}</code>`;
+      elem.innerHTML = `<code class="hljs${language ? ` ${language}` : ""
+        }">${value}</code>`;
       if (!elem.classList.length) elem.removeAttribute("class");
       break;
     case "code":
