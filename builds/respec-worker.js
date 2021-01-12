@@ -21,12 +21,12 @@ self.addEventListener("message", ({ data: originalData }) => {
     }
     case "highlight": {
       const { code } = data;
-      const langs = data.languages.length ? data.languages : undefined;
+      const lang = data.languages.length ? data.languages[0] : 'text';
       try {
-        const { value, language } = self.hljs.highlightAuto(code, langs);
+        const { value, language } = self.hljs.highlight(lang, code);
         Object.assign(data, { value, language });
       } catch (err) {
-        console.error("Could not transform some code?", err);
+        console.error("Could not highlight code:", err);
         // Post back the original code
         Object.assign(data, { value: code, language: "" });
       }
