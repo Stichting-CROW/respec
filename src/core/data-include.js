@@ -117,7 +117,6 @@ export async function run() {
   let incl = includables();
   let remainingIterations = 3; // max 3 levels of [data-include]
   while (incl.length != 0 && remainingIterations > 0) {
-    pub("warn", `${incl.length} elements with [data-include].`);
     await Promise.all(promisesToInclude(incl));
     incl = includables();
     remainingIterations = remainingIterations - 1;
