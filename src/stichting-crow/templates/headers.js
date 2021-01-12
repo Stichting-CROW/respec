@@ -128,9 +128,9 @@ export default (conf, options) => {
     ${conf.logos.map(showLogo)} ${document.querySelector("h1#title")}
     ${getSpecSubTitleElem(conf)}
     <h2>
-      ${conf.prependW3C ? "CROW " : ""}${conf.isCR
-      ? `${conf.longStatus}`
-      : `${conf.textStatus}`}
+      CROW 
+      ${conf.specTypeText}<br/>
+      ${conf.longStatus}
       <time class="dt-published" datetime="${conf.dashDate}"
         >${conf.publishHumanDate}</time
       >${conf.modificationDate
@@ -139,7 +139,7 @@ export default (conf, options) => {
       : ""}
     </h2>
     <dl>
-      ${!conf.isNoTrack
+      ${conf.isVersionControlled
       ? html`
             <dt>${l10n.this_version}</dt>
             <dd>
@@ -185,7 +185,7 @@ export default (conf, options) => {
             <dd><a href="${conf.prevED}">${conf.prevED}</a></dd>
           `
       : ""}
-      ${conf.showPreviousVersion
+      ${!!conf.prevVersion
       ? html`
             <dt>${l10n.prev_version}</dt>
             <dd><a href="${conf.prevVersion}">${conf.prevVersion}</a></dd>

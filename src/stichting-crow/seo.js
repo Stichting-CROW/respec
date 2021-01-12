@@ -84,7 +84,7 @@ async function addJSONLDInfo(conf, doc) {
       {
         "@vocab": "http://schema.org/",
         "@language": doc.documentElement.lang || "en",
-        w3p: "http://www.w3.org/2001/02pd/rec54#",
+        // crow: "https://linkeddata.crow.nl/proc/def/",
         foaf: "http://xmlns.com/foaf/0.1/",
         datePublished: { "@type": "http://www.w3.org/2001/XMLSchema#date" },
         inLanguage: { "@language": null },

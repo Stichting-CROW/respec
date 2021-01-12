@@ -35,14 +35,14 @@ export default (conf, opts) => {
     ${conf.isUnofficial
       ? renderIsUnofficial(opts)
       : conf.isTagFinding
-      ? opts.additionalContent
-      : conf.isNoTrack
-      ? renderIsNoTrack(conf, opts)
-      : html`
+        ? opts.additionalContent
+        : conf.isNoTrack
+          ? renderIsNoTrack(conf, opts)
+          : html`
           <p><em>${conf.l10n.status_at_publication}</em></p>
           ${conf.isSubmission
-            ? noteForSubmission(conf, opts)
-            : html`
+              ? noteForSubmission(conf, opts)
+              : html`
                 ${!conf.sotdAfterWGinfo ? opts.additionalContent : ""}
                 ${!conf.overrideStatus
                   ? html`
@@ -75,21 +75,21 @@ export function renderPreview(conf) {
     <summary>
       This is a
       preview${prUrl && prNumber
-        ? html`
+      ? html`
             of pull request
             <a href="${prUrl}">#${prNumber}</a>
           `
-        : ""}
+      : ""}
     </summary>
     <p>
       Do not attempt to implement this version of the specification. Do not
       reference this version as authoritative in any way.
       ${edDraftURI
-        ? html`
+      ? html`
             Instead, see
             <a href="${edDraftURI}">${edDraftURI}</a> for the Editor's draft.
           `
-        : ""}
+      : ""}
     </p>
   </details>`;
 }
@@ -125,11 +125,11 @@ function renderNotRec(conf) {
   or obsoleted by other documents at any time. It is inappropriate to cite this
   document as other than work in progress.
   ${conf.updateableRec
-    ? html`Future updates to this specification may incorporate
+      ? html`Future updates to this specification may incorporate
         <a href="https://www.w3.org/2020/Process-20200915/#allow-new-features"
           >new features</a
         >.`
-    : ""}`;
+      : ""}`;
   let reviewPolicy = "";
   if (conf.specStatus === "CRD") {
     statusExplanation =
@@ -201,12 +201,12 @@ function renderIsRec({
       Members. W3C recommends the wide deployment of this specification as a
       standard for the Web.
       ${updateableRec
-        ? html`Future updates to this Recommendation may incorporate
+      ? html`Future updates to this Recommendation may incorporate
             <a
               href="https://www.w3.org/2020/Process-20200915/#allow-new-features"
               >new features</a
             >.`
-        : ""}
+      : ""}
     </p>
     ${revisionTypes.includes("addition")
       ? html`<p class="addition">
@@ -267,8 +267,8 @@ function renderDeliverer(conf) {
     ${!isNote && !isIGNote
       ? html`
           ${multipleWGs
-            ? html` W3C maintains ${wgPatentHTML} `
-            : html`
+          ? html` W3C maintains ${wgPatentHTML} `
+          : html`
                 W3C maintains a
                 <a href="${[wgPatentURI]}" rel="disclosure"
                   >public list of any patent disclosures</a
@@ -276,8 +276,8 @@ function renderDeliverer(conf) {
               `}
           made in connection with the deliverables of
           ${multipleWGs
-            ? "each group; these pages also include"
-            : "the group; that page also includes"}
+          ? "each group; these pages also include"
+          : "the group; that page also includes"}
           instructions for disclosing a patent. An individual who has actual
           knowledge of a patent which the individual believes contains
           <a href="${patentPolicyURL}#def-essential">Essential Claim(s)</a>
@@ -300,141 +300,5 @@ function renderDeliverer(conf) {
 function noteForSubmission(conf, opts) {
   return html`
     ${opts.additionalContent}
-    ${conf.isMemberSubmission
-      ? noteForMemberSubmission(conf)
-      : conf.isTeamSubmission
-      ? noteForTeamSubmission(conf, opts)
-      : ""}
   `;
-}
-
-function noteForMemberSubmission(conf) {
-  const teamComment = `https://www.w3.org/Submission/${conf.publishDate.getUTCFullYear()}/${
-    conf.submissionCommentNumber
-  }/Comment/`;
-
-  const patentPolicyURL =
-    conf.wgPatentPolicy === "PP2017"
-      ? "https://www.w3.org/Consortium/Patent-Policy-20170801/"
-      : "https://www.w3.org/Consortium/Patent-Policy/";
-
-  return html`<p>
-    By publishing this document, W3C acknowledges that the
-    <a href="${conf.thisVersion}">Submitting Members</a> have made a formal
-    Submission request to W3C for discussion. Publication of this document by
-    W3C indicates no endorsement of its content by W3C, nor that W3C has, is, or
-    will be allocating any resources to the issues addressed by it. This
-    document is not the product of a chartered W3C group, but is published as
-    potential input to the
-    <a href="https://www.w3.org/Consortium/Process">W3C Process</a>. A
-    <a href="${teamComment}">W3C Team Comment</a> has been published in
-    conjunction with this Member Submission. Publication of acknowledged Member
-    Submissions at the W3C site is one of the benefits of
-    <a href="https://www.w3.org/Consortium/Prospectus/Joining">
-      W3C Membership</a
-    >. Please consult the requirements associated with Member Submissions of
-    <a href="${patentPolicyURL}#sec-submissions"
-      >section 3.3 of the W3C Patent Policy</a
-    >. Please consult the complete
-    <a href="https://www.w3.org/Submission"
-      >list of acknowledged W3C Member Submissions</a
-    >.
-  </p>`;
-}
-
-function noteForTeamSubmission(conf, opts) {
-  return html`
-    ${renderPublicList(conf, opts)}
-    <p>
-      Please consult the complete
-      <a href="https://www.w3.org/TeamSubmission/">list of Team Submissions</a>.
-    </p>
-  `;
-}
-
-export function renderPublicList(conf, opts) {
-  const {
-    mailToWGPublicListWithSubject,
-    mailToWGPublicListSubscription,
-  } = opts;
-  const { wgPublicList, subjectPrefix } = conf;
-  const archivesURL = `https://lists.w3.org/Archives/Public/${wgPublicList}/`;
-  return html`<p>
-    If you wish to make comments regarding this document, please send them to
-    <a href="${mailToWGPublicListWithSubject}">${wgPublicList}@w3.org</a>
-    (<a href="${mailToWGPublicListSubscription}">subscribe</a>,
-    <a href="${archivesURL}">archives</a>)${subjectPrefix
-      ? html` with <code>${subjectPrefix}</code> at the start of your email's
-          subject`
-      : ""}.
-  </p>`;
-}
-
-function linkToWorkingGroup(conf) {
-  if (!conf.wg) {
-    return;
-  }
-  let proposedChanges = null;
-  if (conf.isRec && conf.revisionTypes && conf.revisionTypes.length) {
-    if (conf.revisionTypes.includes("addition")) {
-      if (conf.revisionTypes.includes("correction")) {
-        proposedChanges = html`It includes
-          <a href="https://www.w3.org/2020/Process-20200915/#proposed-changes"
-            >proposed changes</a
-          >, introducing substantive changes and new features since the previous
-          Recommentation.`;
-      } else {
-        proposedChanges = html`It includes
-          <a href="https://www.w3.org/2020/Process-20200915/#proposed-addition"
-            >proposed additions</a
-          >, introducing new features since the previous Recommentation.`;
-      }
-    } else if (conf.revisionTypes.includes("correction")) {
-      proposedChanges = html`It includes
-        <a href="https://www.w3.org/2020/Process-20200915/#proposed-correction"
-          >proposed corrections</a
-        >.`;
-    }
-  }
-  return html`<p>
-    This document was published by ${conf.wgHTML} as ${conf.anOrA}
-    ${conf.longStatus}. ${proposedChanges}
-    ${conf.notYetRec
-      ? "This document is intended to become a W3C Recommendation."
-      : ""}
-  </p>`;
-}
-
-function linkToCommunity(conf, opts) {
-  if (!conf.github && !conf.wgPublicList) {
-    return;
-  }
-  return html`<p>
-    ${conf.github
-      ? html`
-          <a href="${conf.issueBase}">GitHub Issues</a> are preferred for
-          discussion of this specification.
-        `
-      : ""}
-    ${conf.wgPublicList
-      ? html`
-          ${conf.github && conf.wgPublicList
-            ? "Alternatively, you can send comments to our mailing list."
-            : "Comments regarding this document are welcome."}
-          Please send them to
-          <a href="${opts.mailToWGPublicListWithSubject}"
-            >${conf.wgPublicList}@w3.org</a
-          >
-          (<a
-            href="${`https://lists.w3.org/Archives/Public/${conf.wgPublicList}/`}"
-            >archives</a
-          >)${conf.subjectPrefix
-            ? html`
-                with <code>${conf.subjectPrefix}</code> at the start of your
-                email's subject
-              `
-            : ""}.
-        `
-      : ""}
-  </p>`;
 }

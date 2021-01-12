@@ -1,7 +1,7 @@
 // @ts-check
 /* jshint strict: true, browser:true, jquery: true */
 // Module stichting-crow/style
-// Inserts a link to the appropriate W3C style for the specification's maturity level.
+// Inserts a link to the appropriate CROW style for the specification's maturity level.
 // CONFIGURATION
 //  - specStatus: the short code for the specification's maturity level or type (required)
 
@@ -99,12 +99,7 @@ function styleMover(linkURL) {
 }
 
 export function run(conf) {
-  if (!conf.specStatus) {
-    const warn = "`respecConfig.specStatus` missing. Defaulting to 'CROW-BASIS'.";
-    conf.specStatus = "CROW-BASIS";
-    pub("warn", warn);
-  }
-
+  conf.specStatus = conf.specStatus || "";
   let styleFile = "";
 
   // Figure out which style file to use.
@@ -120,6 +115,36 @@ export function run(conf) {
       break;
     default:
       styleFile += conf.specStatus;
+  }
+
+  switch ("CROW-" + conf.specStatus.toUpperCase()) {
+    case "CROW-WD":
+      styleFile = 'crow-specStatus-wd.css';
+      break;
+    case "CROW-TVL":
+      styleFile = 'crow-specStatus-tvl.css';
+      break;
+    case "CROW-DEF":
+      styleFile = 'crow-specStatus-def.css';
+      break;
+    case "CROW-BLANCO":
+      styleFile = "base.css";
+      break;
+    default:
+      styleFile = "crow-specStatus-none.css";
+  }
+
+  if (conf.specStatusHist) {
+    switch ("CROW-" + conf.specStatusHist.toUpperCase()) {
+      case "CROW-DEPR":
+        styleFile = "crow-specStatusHist-depr.css";
+        break;
+      case "CROW-RESC":
+        styleFile = "crow-specStatusHist-resc.css";
+        break;
+      case "CROW-REPL":
+        styleFile = "crow-specStatusHist-repl.css";
+    }
   }
 
   // add favicon for Geonovum

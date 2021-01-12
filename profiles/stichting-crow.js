@@ -20,7 +20,6 @@ const modules = [
   import("../src/core/reindent.js"),
   import("../src/core/title.js"),
   import("../src/stichting-crow/level.js"),
-  // import("../src/stichting-crow/group.js"),
   import("../src/stichting-crow/headers.js"),
   import("../src/stichting-crow/abstract.js"),
   import("../src/core/data-transform.js"),
