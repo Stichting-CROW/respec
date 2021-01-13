@@ -51,8 +51,27 @@ export const name = "core/markdown";
 
 const gtEntity = /&gt;/gm;
 const ampEntity = /&amp;/gm;
+console.log(`I will render <table>`);
 
 class Renderer extends marked.Renderer {
+  table(header, body) {
+    console.log(`I will render <table>`);
+    const classListDefinitions = /<tr>.?<td>{\.([^\}]+)}<\/td>.+?<\/tr>$/ms;
+    if (classListDefinitions.test(body)) {
+
+      const classList = classListDefinitions.exec(body)[1];
+      body = body.replace(classListDefinitions, '');
+
+      const table = super.table(header, body);
+
+      const className = `${classList}`;
+      return table.replace("<table>", `<table class="${className}">`);
+    }
+
+    return super.table(header, body);
+  }
+
+
   code(code, infoString, isEscaped) {
     const { language, ...metaData } = Renderer.parseInfoString(infoString);
 
