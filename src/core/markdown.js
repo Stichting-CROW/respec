@@ -51,11 +51,9 @@ export const name = "core/markdown";
 
 const gtEntity = /&gt;/gm;
 const ampEntity = /&amp;/gm;
-console.log(`I will render <table>`);
 
 class Renderer extends marked.Renderer {
   table(header, body) {
-    console.log(`I will render <table>`);
     const classListDefinitions = /<tr>.?<td>{\.([^\}]+)}<\/td>.+?<\/tr>$/ms;
     if (classListDefinitions.test(body)) {
 
