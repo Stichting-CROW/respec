@@ -19,7 +19,7 @@ function attachFixupScript(doc, version) {
       { once: true }
     );
   }
-  script.src = `https://stichting-crow.github.io/respec/scripts/fixup.js`;
+  script.src = `https://stichting-crow.github.io/respec-design/fixup.js`;
   doc.body.appendChild(script);
 }
 
@@ -45,7 +45,7 @@ function createMetaViewport() {
 function createBaseStyle() {
   const link = document.createElement("link");
   link.rel = "stylesheet";
-  link.href = "https://stichting-crow.github.io/respec/style/base.css";
+  link.href = "https://stichting-crow.github.io/respec-design/base.css";
   link.classList.add("removeOnSave");
   return link;
 }
@@ -59,12 +59,12 @@ function createResourceHints() {
     },
     {
       hint: "preload", // all specs need it, and we attach it on end-all.
-      href: "https://stichting-crow.github.io/respec/scripts/fixup.js",
+      href: "https://stichting-crow.github.io/respec-design/fixup.js",
       as: "script",
     },
     {
       hint: "preload", // all specs include on base.css.
-      href: "https://stichting-crow.github.io/respec/style/base.css",
+      href: "https://stichting-crow.github.io/respec-design/base.css",
       as: "style",
     },
     {
@@ -114,7 +114,7 @@ export function run(conf) {
       styleFile = "base.css";
       break;
     default:
-      styleFile += conf.specStatus;
+      styleFile = conf.specStatus + '.css';
   }
 
   switch ("CROW-" + conf.specStatus.toUpperCase()) {
@@ -152,7 +152,7 @@ export function run(conf) {
   favicon.rel = "shortcut icon";
   favicon.type = "image/x-icon";
   favicon.href =
-    "https://stichting-crow.github.io/respec/style/logos/crow.ico";
+    "https://stichting-crow.github.io/respec-design/logos/crow.ico";
   document.head.prepend(favicon);
 
   // Attach W3C fixup script after we are done.
@@ -166,7 +166,7 @@ export function run(conf) {
     );
   }
 
-  const finalStyleURL = `https://stichting-crow.github.io/respec/style/${styleFile}`;
+  const finalStyleURL = `https://stichting-crow.github.io/respec-design/${styleFile}`;
   linkCSS(document, finalStyleURL);
   // Make sure the W3C stylesheet is the last stylesheet, as required by W3C Pub Rules.
   const moveStyle = styleMover(finalStyleURL);
