@@ -32,6 +32,8 @@ async function fillWithText(el, data, { replace }) {
   if (includeFormat === "text") {
     el.textContent = fill;
   } else if (includeFormat === "code") {
+    const lang = el.dataset.includeLang || '';
+    el.classList.add(lang);
     el.textContent = fill;
     // code needs to be highlighted
     await highlightElement(el);
