@@ -1,11 +1,8 @@
 name: Build and Deploy
 on:
-  push:
-    branches:
-      - develop
   release:
-    types: # This configuration does not affect the page_build event above
-      - created
+    types: [published]
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
